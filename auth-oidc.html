@@ -1,5 +1,7 @@
 <!--
+  version-auth-oidc v2
   Copyright 2018 Nicolas Carlier.
+  Modified to support optional discovery URL configuration.
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -37,12 +39,12 @@ This node expects to find the access token into the following message property:
 <code>msg.req.headers['Authorization']</code>.
 </p>
 <p>
-The access token is validated with public keys extracted form the OpenID
-Connect discovery URL.
+The access token is validated with public keys extracted from the OpenID
+Connect discovery URL. The discovery URL can be configured statically or passed dynamically via <code>msg.discoveryUrl</code>.
 </p>
 <p>
 If the access token is valid, its decoded content is stored into the following
-message property: <code>msg.token</code>
+message property: <code>msg.access_token</code>
 </p>
 </script>
 
@@ -52,7 +54,7 @@ RED.nodes.registerType('auth-oidc',{
   color: '#e7e7ae',
   defaults: {
     name: {value: ''},
-    discovery: {value: '', required: true}
+    discovery: {value: '', required: false}
   },
   inputs: 1,
   outputs: 1,
@@ -65,4 +67,3 @@ RED.nodes.registerType('auth-oidc',{
   }
 });
 </script>
-
